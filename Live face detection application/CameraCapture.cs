@@ -65,5 +65,11 @@ namespace Live_face_detection_application
                 captureInProgress = !captureInProgress;
             }
         }
+        private void ReleaseData()
+        {
+            if (capture != null)
+                capture.Dispose();
+        }
+
     }
 }
