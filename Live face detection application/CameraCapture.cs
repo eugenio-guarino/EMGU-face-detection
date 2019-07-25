@@ -16,7 +16,7 @@ namespace Live_face_detection_application
     public partial class CameraCapture : Form
     {
         //declaring global variables
-        private Capture capture;        //takes images from camera as image frames
+        private VideoCapture capture;        //takes images from camera as image frames
         private bool captureInProgress; // checks if capture is executing
 
         public CameraCapture()
@@ -25,8 +25,8 @@ namespace Live_face_detection_application
         }
         private void ProcessFrame(object sender, EventArgs arg)
         {
-
-            Image<Bgr, byte> ImageFrame = capture.QueryFrame();  //line 1
+            Mat mat = capture.QueryFrame();  //line 1
+            Image<Bgr, Byte> ImageFrame = mat.ToImage<Bgr, Byte>();
             CamImageBox.Image = ImageFrame;        //line 2
         }
 
@@ -37,7 +37,7 @@ namespace Live_face_detection_application
             {
                 try
                 {
-                    capture = new Capture();
+                    capture = new VideoCapture();
                 }
                 catch (NullReferenceException excpt)
                 {
