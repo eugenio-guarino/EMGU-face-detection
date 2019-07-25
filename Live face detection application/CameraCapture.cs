@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Live_face_detection_application
 {
-    public partial class Form1 : Form
+    public partial class CameraCapture : Form
     {
-        public Form1()
+        public CameraCapture()
         {
             InitializeComponent();
         }
