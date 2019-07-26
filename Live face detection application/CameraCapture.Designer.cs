@@ -39,13 +39,13 @@
             this.CamImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CamImageBox.Location = new System.Drawing.Point(12, 12);
             this.CamImageBox.Name = "CamImageBox";
-            this.CamImageBox.Size = new System.Drawing.Size(776, 367);
+            this.CamImageBox.Size = new System.Drawing.Size(648, 367);
             this.CamImageBox.TabIndex = 2;
             this.CamImageBox.TabStop = false;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(674, 403);
+            this.btnStart.Location = new System.Drawing.Point(546, 394);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(114, 35);
             this.btnStart.TabIndex = 3;
@@ -57,7 +57,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(671, 451);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.CamImageBox);
             this.Name = "CameraCapture";

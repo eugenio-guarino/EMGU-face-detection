@@ -16,8 +16,10 @@ namespace Live_face_detection_application
     public partial class CameraCapture : Form
     {
         //declaring global variables
-        private VideoCapture capture;        //takes images from camera as image frames
+        private VideoCapture _capture;        //takes images from camera as image frames
         private bool captureInProgress; // checks if capture is executing
+        private CascadeClassifier _cascadeClassifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_alt_tree.xml");
+
 
         public CameraCapture()
         {
@@ -25,19 +27,35 @@ namespace Live_face_detection_application
         }
         private void ProcessFrame(object sender, EventArgs arg)
         {
-            Mat mat = capture.QueryFrame();  //line 1
-            Image<Bgr, Byte> ImageFrame = mat.ToImage<Bgr, Byte>();
-            CamImageBox.Image = ImageFrame;        //line 2
+
+
+
+            using (var imageFrame = _capture.QueryFrame().ToImage<Bgr, Byte>())
+                {
+                if (imageFrame != null)
+                    {
+                        var grayframe = imageFrame.Convert<Gray, byte>();
+                        var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.07, 3, Size.Empty); //the actual face detection happens here
+
+
+                        foreach (var face in faces)
+                        {
+                            imageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
+
+                        }
+                }
+                CamImageBox.Image = imageFrame;                    
+            }
         }
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
             #region if capture is not created, create it now
-            if (capture == null)
+            if (_capture == null)
             {
                 try
                 {
-                    capture = new VideoCapture();
+                    _capture = new VideoCapture();
                 }
                 catch (NullReferenceException excpt)
                 {
@@ -46,7 +64,7 @@ namespace Live_face_detection_application
             }
             #endregion
 
-            if (capture != null)
+            if (_capture != null)
             {
                 if (captureInProgress)
                 {  //if camera is getting frames then stop the capture and set button Text
@@ -67,8 +85,8 @@ namespace Live_face_detection_application
         }
         private void ReleaseData()
         {
-            if (capture != null)
-                capture.Dispose();
+            if (_capture != null)
+                _capture.Dispose();
         }
 
     }
